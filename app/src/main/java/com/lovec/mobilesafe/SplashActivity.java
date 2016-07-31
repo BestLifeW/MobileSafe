@@ -2,6 +2,7 @@ package com.lovec.mobilesafe;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -35,13 +36,14 @@ import java.net.URL;
 
 public class SplashActivity extends AppCompatActivity {
 
-
+    private String path = Environment.getExternalStorageDirectory().getPath();
     private static final int MS_UPDATE_DIALOG = 1;
     private static final int MS_NOTHING = 2;
     private static final int MS_SERVER_ERROR = 3;
     private static final int MS_URL_ERROR = 4;
     private static final int MS_IO_ERROR = 5;
     private static final int MS_JSON_ERROR = 6;
+    private SharedPreferences sp;
     private String TAG = "这是输出日志";
     private String code;
     private String apkurl;
@@ -67,7 +69,7 @@ public class SplashActivity extends AppCompatActivity {
                     ToastUtils.showToast(getApplicationContext(), "错误码是" + MS_URL_ERROR);
                     enterHome();
                 case MS_IO_ERROR:
-                    ToastUtils.showToast(getApplicationContext(), "错误码是" + MS_IO_ERROR);
+                    ToastUtils.showToast(getApplicationContext(), "亲，网络未连接哦~" + "错误代码" + MS_IO_ERROR);
                     enterHome();
                 case MS_JSON_ERROR:
                     ToastUtils.showToast(getApplicationContext(), "错误码是" + MS_JSON_ERROR);
@@ -76,13 +78,42 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
     };
-    private String path = Environment.getExternalStorageDirectory().getPath();
 
+
+    /*
+    * 赶紧给onCreate 方法加上注释，要不等等找不到了
+    * */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+        checkUpdate();
+        initView();
+
+
+    }
+
+    /*判断是否更新*/
+    private void checkUpdate() {
+        sp = getSharedPreferences("config", MODE_PRIVATE);
+        if (sp.getBoolean("update", true)) {
+            update();
+        } else {
+            //不能让主线程睡两秒钟
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    SystemClock.sleep(2000);
+                    enterHome();
+                }
+            }).start();
+        }
+    }
 
     //弹出一个对话框
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("新版本发布啦" + code);
+        builder.setTitle(code + "版本发布啦!");
         builder.setCancelable(false);
         builder.setMessage(desc);
         builder.setPositiveButton("马上下载", new DialogInterface.OnClickListener() {
@@ -127,7 +158,6 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onLoading(long total, long current, boolean isUploading) {
                     super.onLoading(total, current, isUploading);
-                    Toast.makeText(SplashActivity.this, "当前" + current, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -149,7 +179,6 @@ public class SplashActivity extends AppCompatActivity {
         intent.addCategory("android.intent.category.DEFAULT");
         intent.setDataAndType(Uri.fromFile(new File(path + "/mobliesafe75.apk")), "application/vnd.android.package-archive");
         startActivityForResult(intent, 10);
-
     }
 
     @Override
@@ -164,20 +193,17 @@ public class SplashActivity extends AppCompatActivity {
         * */
     private void enterHome() {
         Intent intent = new Intent(this, HomeActivity.class);
-
         startActivity(intent);
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+
+    //初始化布局
+    private void initView() {
         TextView tv_splash_versionname = (TextView) findViewById(R.id.tv_splash_versionname);
-        tv_splash_versionname.setText("版本号:" + getVersionName());
-
-
-        update();
+        if (tv_splash_versionname != null) {
+            tv_splash_versionname.setText("版本号:" + getVersionName());
+        }
     }
 
     /*
@@ -238,7 +264,7 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                     message.what = MS_JSON_ERROR;
                 } finally {
-                    //不管有没有异常，都
+                    //不管有没有异常，都睡两秒
                     endTime = (int) SystemClock.currentThreadTimeMillis();
                     int dTime = startTime - endTime;
                     if (dTime < 2000) {
@@ -258,7 +284,6 @@ public class SplashActivity extends AppCompatActivity {
     private String getVersionName() {
         //通过这个包的管理者可以获得包的基础信息
         PackageManager pm = getPackageManager();
-
         try {
             //flags 0表示获取包里面的基础信息
             PackageInfo packageInfo = pm.getPackageInfo(getPackageName(), 0);
