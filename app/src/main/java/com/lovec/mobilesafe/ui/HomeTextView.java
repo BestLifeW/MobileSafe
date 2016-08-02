@@ -1,4 +1,4 @@
-package com.lovec.mobilesafe;
+package com.lovec.mobilesafe.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

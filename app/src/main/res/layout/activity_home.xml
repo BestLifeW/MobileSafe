@@ -20,7 +20,7 @@
                 :middle 隐藏中间的文字
                 :end 隐藏后面的文字
                 :marquee 滚动-->
-    <com.lovec.mobilesafe.HomeTextView
+    <com.lovec.mobilesafe.ui.HomeTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
