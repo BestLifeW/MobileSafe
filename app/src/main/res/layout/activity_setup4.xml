@@ -15,36 +15,17 @@
         android:gravity="center_vertical|center_horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
-        android:text="2.手机卡绑定"
+        android:text="4.恭喜你， 设置完成"
         android:textColor="#fff"
         android:textSize="22sp" />
 
-    <TextView
+    <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="通过绑定SIM卡"
+        android:text="你没有开启防盗保护"
         android:textSize="18sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:gravity="center_vertical"
-        android:text="下次重启手机，如果发现Sim卡变化\n就会发送报警短信"
-        android:textSize="18sp" />
-
-    <com.lovec.mobilesafe.ui.SettingView
-        android:id="@+id/sv_setup2_sim"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        lovecanon:des_off="SIM卡还未绑定"
-        lovecanon:des_on="SIM卡已经绑定"
-        lovecanon:title="点击绑定SIM卡"
-
-        >
-
-    </com.lovec.mobilesafe.ui.SettingView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,20 +37,22 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/presence_invisible" />
 
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_invisible" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_invisible" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/presence_online" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/presence_invisible" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/presence_invisible" />
     </LinearLayout>
 
     <RelativeLayout
@@ -80,9 +63,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/bind" />
+            android:src="@drawable/phone" />
 
-        <Button style="@style/next" />
+        <Button
+            style="@style/next"
+            android:text="设置完成" />
 
         <Button style="@style/pre" />
     </RelativeLayout>

@@ -78,6 +78,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
     };
+    private String NETWORKURL;
 
 
     /*
@@ -221,7 +222,8 @@ public class SplashActivity extends AppCompatActivity {
                 startTime = (int) SystemClock.currentThreadTimeMillis();
                 try {
                     //连接服务器
-                    URL url = new URL("http://192.168.1.5:8080/vesionInfo.html");
+                    NETWORKURL = "http://wtc.xiapu.co/vesionInfo.html";
+                    URL url = new URL(NETWORKURL);
                     //获取url的连接
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     //设置连接超时时间
@@ -272,8 +274,6 @@ public class SplashActivity extends AppCompatActivity {
                     }
                     handler.sendMessage(message);
                 }
-
-
             }
         }.start();
     }

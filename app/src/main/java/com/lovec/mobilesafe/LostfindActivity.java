@@ -2,8 +2,9 @@ package com.lovec.mobilesafe;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 public class LostfindActivity extends AppCompatActivity {
     private SharedPreferences sp;
@@ -24,9 +25,10 @@ public class LostfindActivity extends AppCompatActivity {
             //不是第一次，跳转到显示界面
             setContentView(R.layout.activity_lostfind);
         }
-
-
     }
 
-
+    public void resetup(View view) {
+        Intent intent = new Intent(getApplicationContext(), Setup1Activity.class);
+        startActivity(intent);
+    }
 }

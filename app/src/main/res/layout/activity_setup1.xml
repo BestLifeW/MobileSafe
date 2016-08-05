@@ -97,16 +97,6 @@
             android:layout_centerInParent="true"
             android:src="@drawable/setup1" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button"
-            android:drawableRight="@android:drawable/ic_media_next"
-            android:padding="5dp"
-            android:text="下一步"
-            android:onClick="next"
-            android:textColor="#fff" />
+        <Button style="@style/next" />
     </RelativeLayout>
 </LinearLayout>

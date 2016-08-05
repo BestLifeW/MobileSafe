@@ -9,4 +9,30 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <style name="next">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@drawable/button</item>
+        <item name="android:drawableRight">@android:drawable/ic_media_next</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:text">下一步</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:onClick">next</item>
+    </style>
+
+    <style name="pre">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:background">@drawable/button</item>
+        <item name="android:drawableLeft">@android:drawable/ic_media_previous</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:text">上一步</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:onClick">pre</item>
+    </style>
 </resources>
