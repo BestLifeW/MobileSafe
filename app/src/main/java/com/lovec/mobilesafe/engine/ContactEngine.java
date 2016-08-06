@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ public class ContactEngine {
     * */
     public static List<HashMap<String, String>> getAllContactInfo(
             Context context) {
-        SystemClock.sleep(3000);
         ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
         // 1.获取内容解析者
         ContentResolver resolver = context.getContentResolver();
