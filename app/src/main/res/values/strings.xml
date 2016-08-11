@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MobileSafe</string>
+    <string name="sample_device_admin">一键锁屏</string>
+    <string name="sample_device_admin_description">锁屏工具，简单好用</string>
 </resources>

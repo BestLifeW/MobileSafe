@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +22,7 @@ import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.util.IOUtils;
 import com.lovec.mobilesafe.utils.StreamUtils;
 import com.lovec.mobilesafe.utils.ToastUtils;
 
@@ -28,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -90,6 +93,60 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         checkUpdate();
         initView();
+        copyDb();
+
+        //开启电话服务
+        //放在设置里面开启了
+        //startAddressService();
+
+    }
+
+    /*
+    * 开启电话的操作
+    * */
+//    private void startAddressService() {
+//        Intent intent = new Intent(getApplicationContext(), AddressService.class);
+//        startService(intent);
+//    }
+
+    /*
+    * 拷贝数据库的操作
+    *
+    * */
+    private void copyDb() {
+        File file = new File(getFilesDir(), "address.db");
+        //判断文件是否存在
+        if (!file.exists()) {
+            //从assets目录中将数据库读取出来
+            //1.获取assets的管理者
+            AssetManager am = getAssets();
+            InputStream in = null;
+            FileOutputStream out = null;
+            try {
+                //2.读取数据库
+                in = am.open("address.db");
+                //写入流
+                //getCacheDir : 获取缓存的路径
+                //getFilesDir : 获取文件的路径
+                out = new FileOutputStream(file);
+                //3.读写操作
+                //设置缓冲区
+                byte[] b = new byte[1024];
+                int len = -1;
+                while ((len = in.read(b)) != -1) {
+                    out.write(b, 0, len);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+//				in.close();
+//				out.close();
+                IOUtils.closeQuietly(in);
+                IOUtils.closeQuietly(out);
+            }
+
+
+        }
 
 
     }

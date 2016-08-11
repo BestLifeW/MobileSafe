@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="王田朝"
-        android:textColor="#fff"
+        android:textColor="#3c3c3c"
         android:textSize="18sp"/>
 
     <TextView
@@ -20,6 +20,6 @@
         android:drawableLeft="@android:drawable/ic_menu_call"
         android:gravity="center"
         android:text="15606929310"
-        android:textColor="#fff"
+        android:textColor="#3c3c3c"
         android:textSize="16sp"/>
 </LinearLayout>

@@ -59,6 +59,10 @@ public class HomeActivity extends Activity {
                         }
 
                         break;
+                    case 7:
+                        intent = new Intent(mContext, AToolsActivity.class);
+                        startActivity(intent);
+                        break;
                     case 8:
                         intent = new Intent(mContext, SettingActivity.class);
                         startActivity(intent);
