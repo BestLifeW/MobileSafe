@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         lovecanon:des_off="显示号码归属地"
         lovecanon:des_on="打开号码归属地提示"
-        lovecanon:title="关闭号码归属地提示"
+        lovecanon:title="号码归属地提示"
         >
     </com.lovec.mobilesafe.ui.SettingView>
 
@@ -40,6 +40,20 @@
         android:id="@+id/scv_setting_changebg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </com.lovec.mobilesafe.ui.SettingClickView>
+
+    <com.lovec.mobilesafe.ui.SettingClickView
+        android:id="@+id/scv_setting_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.lovec.mobilesafe.ui.SettingClickView>
+
+    <com.lovec.mobilesafe.ui.SettingView
+        android:id="@+id/sv_setting_blacknum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lovecanon:des_off="关闭黑名单拦截"
+        lovecanon:des_on="打开黑名单拦截"
+        lovecanon:title="黑名单服务"
+        />
 </LinearLayout>

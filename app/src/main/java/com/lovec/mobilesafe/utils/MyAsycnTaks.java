@@ -36,9 +36,7 @@ public abstract class MyAsycnTaks {
     * */
 
     public void excute() {
-
         preTask();
-
         new Thread(new Runnable() {
             @Override
             public void run() {

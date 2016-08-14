@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.lovec.mobilesafe.dao.AddressDao;
 import com.lovec.mobilesafe.utils.ToastUtils;
@@ -17,9 +18,7 @@ public class AddressService extends Service {
     private MyPhoneStateListener myPhoneStateListener;
     private TelephonyManager telephonyManager;
     private MyOutCallingPhoneReceiver myOutCallingPhoneReceiver;
-
-    public AddressService() {
-    }
+    private static final String TAG = "AddressService";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -32,11 +31,17 @@ public class AddressService extends Service {
         myPhoneStateListener = new MyPhoneStateListener();
         telephonyManager = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         telephonyManager.listen(myPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-
-
         myOutCallingPhoneReceiver = new MyOutCallingPhoneReceiver();
         IntentFilter intentFilter = new IntentFilter("android.intent.action.NEW_OUTGOING_CALL");
-        registerReceiver(myOutCallingPhoneReceiver, intentFilter);
+        try {
+
+            registerReceiver(myOutCallingPhoneReceiver, intentFilter);
+            Log.i(TAG, "onCreate: 广播注册成功");
+        } catch (Exception e) {
+            Log.i(TAG, "onCreate: 广播注册失败");
+        }
+        Log.i(TAG, "onCreate: 服务开启成功");
+
     }
 
 
@@ -47,6 +52,12 @@ public class AddressService extends Service {
             String phone = getResultData();
             String location = AddressDao.queryAddress(phone, context);
             ToastUtils.CustomToast(context, location);
+            //ToastUtils.CustomToast(context, "123");
+            if (!TextUtils.isEmpty(location)) {
+                // 显示toast
+                ToastUtils.CustomToast(context, location);
+            }
+            Log.i(TAG, "电话拨打出去了！" + location);
         }
     }
 
@@ -57,14 +68,19 @@ public class AddressService extends Service {
         public void onCallStateChanged(int state, String incomingNumber) {
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING://响铃
+                    Log.i(TAG, "电话铃声响");
                     String location = AddressDao.queryAddress(incomingNumber, getApplicationContext());
                     if (!TextUtils.isEmpty(location)) {
-                        ToastUtils.showToast(getApplicationContext(), location);
+                        ToastUtils.CustomToast(getApplicationContext(), location);
                     }
                     break;
                 case TelephonyManager.CALL_STATE_IDLE://空闲
+                    Log.i(TAG, "电话空闲了");
+                    ToastUtils.hideToast();
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK://接听
+                    Log.i(TAG, "电话接听了");
+                    //ToastUtils.hideToast();
                     break;
             }
 
@@ -77,6 +93,7 @@ public class AddressService extends Service {
     public void onDestroy() {
         telephonyManager.listen(myPhoneStateListener, PhoneStateListener.LISTEN_NONE);
         unregisterReceiver(myOutCallingPhoneReceiver);
+        Log.i(TAG, "广播关闭成功");
         super.onDestroy();
     }
 }

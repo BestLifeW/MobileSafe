@@ -59,6 +59,13 @@ public class HomeActivity extends Activity {
                         }
 
                         break;
+                    case 2:
+                        startActivity(new Intent(getApplicationContext(), SoftManagerActivity.class));
+                        break;
+                    case 1:
+                        intent = new Intent(getApplication(), CallSmsSafeActivity.class);
+                        startActivity(intent);
+                        break;
                     case 7:
                         intent = new Intent(mContext, AToolsActivity.class);
                         startActivity(intent);

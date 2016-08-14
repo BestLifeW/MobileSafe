@@ -71,8 +71,20 @@
         <activity android:name=".AddressActivity">
         </activity>
 
-        <service android:name=".service.AddressService"
-            />
+        <service android:name=".service.AddressService"/>
+
+        <activity
+            android:name=".DragViewActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <activity android:name=".CallSmsSafeActivity">
+        </activity>
+
+        <service android:name=".service.BlackNumService">
+        </service>
+
+        <activity android:name=".SoftManagerActivity">
+        </activity>
     </application>
 
 </manifest>
