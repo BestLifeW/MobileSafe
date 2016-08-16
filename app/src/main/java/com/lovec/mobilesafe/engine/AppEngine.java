@@ -15,6 +15,7 @@ import java.util.List;
  * Created by lovec on 2016/8/13.
  */
 public class AppEngine {
+
     public static List<AppInfo> getAppInfos(Context context) {
         List<AppInfo> list = new ArrayList<AppInfo>();
         PackageManager packageManager = context.getPackageManager();
@@ -49,6 +50,5 @@ public class AppEngine {
             list.add(appInfo);
         }
         return list;
-
     }
 }

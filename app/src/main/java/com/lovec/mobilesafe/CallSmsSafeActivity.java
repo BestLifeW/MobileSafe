@@ -48,10 +48,10 @@ public class CallSmsSafeActivity extends AppCompatActivity {
         Log.i(TAG, "preTask: 我在添加数据");
 
         initView();
-        for (int i = 0; i < 100; i++) {
+    /*    for (int i = 0; i < 100; i++) {
             blackNumDao.addBlackNum("12345123" + i, 1);
         }
-
+*/
         fillData();
     }
 
@@ -59,17 +59,24 @@ public class CallSmsSafeActivity extends AppCompatActivity {
 
         new MyAsycnTaks() {
 
-
             @Override
             public void preTask() {
                 loading.setVisibility(View.VISIBLE);
-                Log.i(TAG, "preTask: 我在工作啊");
+            }
 
+            @Override
+            public void postTask() {
+                if (myAdapter == null) {
+                    myAdapter = new MyAdapter();
+                    lv_callsmssafe_blacknum.setAdapter(myAdapter);
+                } else {
+                    myAdapter.notifyDataSetChanged();
+                }
+                loading.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void doinBack() {
-
                 if (list == null) {
                     //1.2.3    4.5.6
                     list = blackNumDao.getPartBlackNum(maxNum, startIndex);
@@ -79,18 +86,6 @@ public class CallSmsSafeActivity extends AppCompatActivity {
                     //A.addAll(B)  A [1.2.3.4.5.6]
                     list.addAll(blackNumDao.getPartBlackNum(maxNum, startIndex));
                 }
-            }
-
-            @Override
-            public void postTask() {
-
-                if (myAdapter == null) {
-                    myAdapter = new MyAdapter();
-                    lv_callsmssafe_blacknum.setAdapter(myAdapter);
-                } else {
-                    myAdapter.notifyDataSetChanged();
-                }
-                loading.setVisibility(View.INVISIBLE);
             }
         }.excute();
     }
