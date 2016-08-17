@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.lovec.mobilesafe.been.AppInfo;
 import com.lovec.mobilesafe.engine.AppEngine;
 import com.lovec.mobilesafe.utils.AppUtil;
+import com.lovec.mobilesafe.utils.DensityUtil;
 import com.lovec.mobilesafe.utils.MyAsycnTaks;
 import com.lovec.mobilesafe.utils.ToastUtils;
 
@@ -105,7 +106,7 @@ public class SoftManagerActivity extends AppCompatActivity implements View.OnCli
                 view.getLocationInWindow(location);
                 int x = location[0];
                 int y = location[1];
-                popupWindow.showAtLocation(parent, Gravity.LEFT | Gravity.TOP, x + 50, y + 10);
+                popupWindow.showAtLocation(parent, Gravity.LEFT | Gravity.TOP, x + DensityUtil.dip2qx(getApplication(), 50), y + DensityUtil.dip2qx(getApplication(), 50));
 
                 ScaleAnimation scaleAnimation = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(200);

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.lovec.mobilesafe.been.TaskInfo;
 import com.lovec.mobilesafe.engine.TaskEngine;
 import com.lovec.mobilesafe.utils.MyAsycnTaks;
+import com.lovec.mobilesafe.utils.TaskUtil;
 import com.lovec.mobilesafe.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -35,6 +36,10 @@ public class TaskManagerActivity extends AppCompatActivity {
     private ArrayList<TaskInfo> systeminfo;
     private Myadapter adapter;
     private TaskInfo taskInfo;
+    private TextView tv_taskmanager_processes;
+    private TextView tv_taskmanager_freeandtotalram;
+    private boolean isShowSystemInfo = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,19 @@ public class TaskManagerActivity extends AppCompatActivity {
         lv_taskmanager_processes = (ListView) findViewById(R.id.lv_taskmanager_processes);
         loading = (ProgressBar) findViewById(R.id.loading);
 
+        tv_taskmanager_processes = (TextView) findViewById(R.id.tv_taskmanager_processes);
+        tv_taskmanager_freeandtotalram = (TextView) findViewById(R.id.tv_taskmanager_freeandtotalram);
+
+        //设置显示数据
+        int processCount = TaskUtil.getProcessCount(getApplicationContext());
+        tv_taskmanager_processes.setText("运行中进程:\n" + processCount);
+
+        long availableRam = TaskUtil.getAvailableRam(getApplicationContext());
+        long toatalRam = TaskUtil.getToatalRam(getApplicationContext());
+        String availableRam1 = Formatter.formatShortFileSize(getApplicationContext(), availableRam);
+        String toatalRam1 = Formatter.formatShortFileSize(getApplicationContext(), toatalRam);
+        tv_taskmanager_freeandtotalram.setText("剩余/总内存:\n" + availableRam1 + "/"
+                + toatalRam1);
         //加载数据
         fillData();
         listviewItemClick();
@@ -131,7 +149,8 @@ public class TaskManagerActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return userappinfo.size() + systeminfo.size() + 2;
+            //return userappinfo.size() + systeminfo.size() + 2;
+            return isShowSystemInfo ? userappinfo.size() + 1 + systeminfo.size() + 1 : userappinfo.size() + 1;
         }
 
         @Override
@@ -277,8 +296,32 @@ public class TaskManagerActivity extends AppCompatActivity {
             }
         }
         ToastUtils.showToast(getApplicationContext(), "共清理了" + deleteTaskInfo.size() + "进程" + "释放了");
+
+        // 更改剩余总内存,重新获取剩余总内存
+        // 获取剩余,总内存'
+        long availableRam = TaskUtil.getAvailableRam(getApplicationContext());
+        // 数据转化
+        String availaRam = Formatter.formatFileSize(getApplicationContext(),
+                availableRam);
+        // 获取总内存
+        // 根据不同的sdk版去调用不同的方法
+        // 1.获取当前的sdk版本
+        // 数据转化
+        long toatalRam = TaskUtil.getToatalRam(getApplicationContext());
+        String totRam = Formatter.formatFileSize(getApplicationContext(),
+                toatalRam);
+        tv_taskmanager_freeandtotalram.setText("剩余/总内存:\n" + availaRam + "/"
+                + totRam);
         deleteTaskInfo.clear();
         deleteTaskInfo = null;
+        adapter.notifyDataSetChanged();
+    }
+
+    /*
+    * 设置操作
+    * */
+    public void setting(View view) {
+        isShowSystemInfo = !isShowSystemInfo;
         adapter.notifyDataSetChanged();
     }
 }

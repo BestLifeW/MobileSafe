@@ -35,18 +35,6 @@
         <activity android:name=".Setup2Activity"/>
         <activity android:name=".Setup3Activity"/>
         <activity android:name=".Setup4Activity"/>
-
-        <receiver android:name=".receiver.BootCompleteRecevier">
-            <intent-filter android:priority="1000">
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".receiver.SmsReceiver">
-            <intent-filter android:priority="1000">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-            </intent-filter>
-        </receiver>
-
         <activity android:name=".ContactActivity">
         </activity>
 
@@ -71,23 +59,45 @@
         </activity>
         <activity android:name=".AddressActivity">
         </activity>
-
-        <service android:name=".service.AddressService"/>
-
         <activity
             android:name=".DragViewActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity android:name=".CallSmsSafeActivity">
         </activity>
-
-        <service android:name=".service.BlackNumService">
-        </service>
-
         <activity android:name=".SoftManagerActivity">
         </activity>
         <activity android:name=".TaskManagerActivity">
         </activity>
+
+        <service android:name=".service.BlackNumService">
+        </service>
+        <service android:name=".service.AddressService"/>
+
+        <receiver android:name=".receiver.BootCompleteRecevier">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.SmsReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.MyWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/example_appwidget_info"/>
+        </receiver>
+
+        <service
+            android:name=".service.WidgetService"/>
+
+
     </application>
 
 </manifest>

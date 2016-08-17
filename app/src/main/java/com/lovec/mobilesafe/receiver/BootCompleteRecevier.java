@@ -12,7 +12,6 @@ public class BootCompleteRecevier extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
         SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
         //检查SIM卡是否发生变化

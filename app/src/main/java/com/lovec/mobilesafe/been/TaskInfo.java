@@ -48,7 +48,6 @@ public class TaskInfo {
 	}
 	public TaskInfo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public TaskInfo(String name, Drawable icon, long ramSize,
 			String packageName, boolean isUser) {
