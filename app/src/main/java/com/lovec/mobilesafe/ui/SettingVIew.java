@@ -12,7 +12,7 @@ import com.lovec.mobilesafe.R;
 /**
  * Created by lovec on 2016/8/1.
  */
-public class SettingView extends RelativeLayout {
+public class SettingVIew extends RelativeLayout {
 
     private TextView iv_setting_title;
     private TextView iv_setting_des;
@@ -21,13 +21,13 @@ public class SettingView extends RelativeLayout {
     private String des_on;
     private String des_off;
 
-    public SettingView(Context context) {
+    public SettingVIew(Context context) {
         super(context);
         init();
     }
 
     //AttributeSet 保存控件的所有属性
-    public SettingView(Context context, AttributeSet attrs) {
+    public SettingVIew(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
      /*   int count = attrs.getAttributeCount();
@@ -46,7 +46,7 @@ public class SettingView extends RelativeLayout {
         }
     }
 
-    public SettingView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SettingVIew(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
 

@@ -6,19 +6,19 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.lovec.mobilesafe.ui.SettingView;
+import com.lovec.mobilesafe.ui.SettingVIew;
 import com.lovec.mobilesafe.utils.ToastUtils;
 
 public class Setup2Activity extends SetUpBaseActivitiy {
 
-    private SettingView sv_setup2_sim;
+    private SettingVIew sv_setup2_sim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup2);
 
-        sv_setup2_sim = (SettingView) findViewById(R.id.sv_setup2_sim);
+        sv_setup2_sim = (SettingVIew) findViewById(R.id.sv_setup2_sim);
 
 
         if (TextUtils.isEmpty(sp.getString("sim", ""))) {

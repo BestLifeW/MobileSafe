@@ -7,12 +7,14 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 
 import com.lovec.mobilesafe.service.AddressService;
 import com.lovec.mobilesafe.service.BlackNumService;
+import com.lovec.mobilesafe.service.WatchDogService;
 import com.lovec.mobilesafe.ui.SettingClickView;
-import com.lovec.mobilesafe.ui.SettingView;
+import com.lovec.mobilesafe.ui.SettingVIew;
 import com.lovec.mobilesafe.utils.AddressUtils;
 
 /**
@@ -20,24 +22,27 @@ import com.lovec.mobilesafe.utils.AddressUtils;
  */
 public class SettingActivity extends Activity {
 
-    private SettingView sv_setting_update;
+    private SettingVIew sv_setting_update;
     private SharedPreferences sp;
-    private SettingView sv_setting_address;
+    private SettingVIew sv_setting_address;
     private SettingClickView scv_setting_changebg;
     private SettingClickView scv_setting_location;
-    private SettingView sv_setting_blacknum;
+    private SettingVIew sv_setting_blacknum;
+    private SettingVIew sv_setting_lock;
+    private static final String TAG = "SettingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         sp = getSharedPreferences("config", MODE_PRIVATE);
-        sv_setting_update = (SettingView) findViewById(R.id.sv_setting_update);
-        sv_setting_address = (SettingView) findViewById(R.id.sv_setting_address);
+        sv_setting_update = (SettingVIew) findViewById(R.id.sv_setting_update);
+        sv_setting_address = (SettingVIew) findViewById(R.id.sv_setting_address);
 
         scv_setting_changebg = (SettingClickView) findViewById(R.id.scv_setting_changebg);
         scv_setting_location = (SettingClickView) findViewById(R.id.scv_setting_location);
-        sv_setting_blacknum = (SettingView) findViewById(R.id.sv_setting_blacknum);
+        sv_setting_blacknum = (SettingVIew) findViewById(R.id.sv_setting_blacknum);
+        sv_setting_lock = (SettingVIew) findViewById(R.id.sv_setting_lock);
         update();
         changeBg();
         location();
@@ -92,6 +97,39 @@ public class SettingActivity extends Activity {
         super.onStart();
         address();
         blackNum();
+        lock();
+    }
+
+    /*
+    * 软件锁操作
+    * */
+    private void lock() {
+        if (AddressUtils.isRunningService("com.lovec.mobilesafe.service.WatchDogService", getApplicationContext())) {
+            //开启服务
+            sv_setting_lock.setChecked(true);
+        } else {
+            //关闭服务
+            sv_setting_lock.setChecked(false);
+        }
+
+        sv_setting_lock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick:点击了");
+                Intent intent = new Intent(getApplicationContext(), WatchDogService.class);
+                if (sv_setting_lock.isChecked()) {
+                    //之前的状态,关闭更新
+                    Log.i(TAG, "服务关闭");
+                    stopService(intent);
+                    sv_setting_lock.setChecked(false);
+                } else {
+                    //打开提示更新
+                    Log.i(TAG, "服务开启");
+                    startService(intent);
+                    sv_setting_lock.setChecked(true);
+                }
+            }
+        });
     }
 
     //黑名单拦截

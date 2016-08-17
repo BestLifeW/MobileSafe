@@ -22,7 +22,7 @@
             android:textColor="#fff"
             android:textSize="22sp"/>
 
-        <com.lovec.mobilesafe.ui.SettingView
+        <com.lovec.mobilesafe.ui.SettingVIew
             android:id="@+id/sv_setting_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,9 +30,9 @@
             lovecanon:des_on="打开提示更新"
             lovecanon:title="提示更新"
             >
-        </com.lovec.mobilesafe.ui.SettingView>
+        </com.lovec.mobilesafe.ui.SettingVIew>
 
-        <com.lovec.mobilesafe.ui.SettingView
+        <com.lovec.mobilesafe.ui.SettingVIew
             android:id="@+id/sv_setting_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             lovecanon:des_on="打开号码归属地提示"
             lovecanon:title="号码归属地提示"
             >
-        </com.lovec.mobilesafe.ui.SettingView>
+        </com.lovec.mobilesafe.ui.SettingVIew>
 
         <com.lovec.mobilesafe.ui.SettingClickView
             android:id="@+id/scv_setting_changebg"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content">
         </com.lovec.mobilesafe.ui.SettingClickView>
 
-        <com.lovec.mobilesafe.ui.SettingView
+        <com.lovec.mobilesafe.ui.SettingVIew
             android:id="@+id/sv_setting_blacknum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,5 +62,14 @@
             lovecanon:des_on="打开黑名单拦截"
             lovecanon:title="黑名单服务"
             />
+
+        <com.lovec.mobilesafe.ui.SettingVIew
+            android:id="@+id/sv_setting_lock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            lovecanon:des_off="关闭软件锁"
+            lovecanon:des_on="打开软件锁"
+            lovecanon:title="软件锁">
+        </com.lovec.mobilesafe.ui.SettingVIew>
     </LinearLayout>
 </ScrollView>
