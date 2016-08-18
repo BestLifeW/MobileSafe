@@ -93,8 +93,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         checkUpdate();
         initView();
-        copyDb();
-
+        copyDb("address.db");
+        copyDb("antivirus.db");
         //开启电话服务
         //放在设置里面开启了
         //startAddressService();
@@ -113,8 +113,8 @@ public class SplashActivity extends AppCompatActivity {
     * 拷贝数据库的操作
     *
     * */
-    private void copyDb() {
-        File file = new File(getFilesDir(), "address.db");
+    private void copyDb(String dbname) {
+        File file = new File(getFilesDir(), dbname);
         //判断文件是否存在
         if (!file.exists()) {
             //从assets目录中将数据库读取出来
@@ -124,7 +124,7 @@ public class SplashActivity extends AppCompatActivity {
             FileOutputStream out = null;
             try {
                 //2.读取数据库
-                in = am.open("address.db");
+                in = am.open(dbname);
                 //写入流
                 //getCacheDir : 获取缓存的路径
                 //getFilesDir : 获取文件的路径
